@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class Payment extends Model
+{
+    protected $fillable = [
+        'booking_id', 'method', 'amount', 'status', 'provider', 'reference', 'bank',
+        'qr_payload', 'expires_at', 'paid_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'integer',
+            'expires_at' => 'datetime',
+            'paid_at' => 'datetime',
+        ];
+    }
+
+    public function booking(): BelongsTo
+    {
+        return $this->belongsTo(Booking::class);
+    }
+}
